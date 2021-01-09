@@ -1,0 +1,80 @@
+@import "../../../styles/settings.scss";
+
+.component {
+  border: none;
+  border-radius: 50%;
+  color: $color-light;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+
+  &.large {
+    width: $base-unit * 7;
+    height: $base-unit * 7;
+    border: $base-unit solid $color-light;
+    font-size: $base-unit * 2;
+  }
+
+  &.medium {
+    width: $base-unit * 4;
+    height: $base-unit * 4;
+    font-size: $base-unit * 1.5;
+  }
+
+  &.small {
+    width: $base-unit * 2;
+    height: $base-unit * 2;
+    font-size: $base-unit;
+  }
+
+  &.line {
+    @include p-el("before") {
+      left: 50%;
+      display: inline-block;
+      background: $color-border;
+      transform: translateX(-50%);
+    }
+  }
+
+  &.outerLine {
+    margin-left: $base-unit * 6.5;
+
+    @include p-el("before") {
+      top: -$base-unit * 11;
+      height: $base-unit * 10;
+      width: $base-unit * 0.15;
+      z-index: 0;
+    }
+
+    @include max-media($br-tablet) {
+      margin-left: $base-unit*1.5;
+    }
+  }
+
+  &.innerLine {
+    margin-left: $base-unit * 3.5;
+
+    @include max-media($br-tablet) {
+      margin-left: $base-unit*1.5;
+    }
+
+    @include p-el("before") {
+      top: -$base-unit * 4.5;
+      height: $base-unit * 4.5;
+      width: $base-unit * 0.15;
+      z-index: 0;
+    }
+  }
+
+  &.danger {
+    @extend%danger-gradient;
+    @extend%danger-shadow;
+  }
+
+  &.success {
+    @extend%success-gradient;
+    @extend%success-shadow;
+  }
+}

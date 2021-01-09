@@ -1,0 +1,22 @@
+@import "../../../styles/settings.scss";
+
+.component {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 0;
+  @extend%condition-font;
+
+  &.small {
+    @extend%small-line;
+  }
+
+  &.medium {
+    @extend%medium-line;
+  }
+
+  &.large {
+    @extend%large-line;
+  }
+}
