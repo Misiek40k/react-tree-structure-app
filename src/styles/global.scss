@@ -1,0 +1,52 @@
+@import "./normalize.scss";
+@import "./settings.scss";
+@import "./typography.scss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html{
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: $color-light;
+  font-family: $font-text;
+  font-size: ($base-unit * 0.8);
+  font-weight: $fw-regular;
+  line-height: 1.7;
+  color: $color-text;
+  letter-spacing: 0.5px;
+
+
+  @include p-el("before") {
+    @extend%shape;
+    top: $base-unit * 16;
+    left: -22vw;
+    background: $color-secondary;
+    border-radius: 70% 40% 50% 50% / 60% 60% 50% 50%;
+    transform: rotate(230deg);
+  }
+
+  @include p-el("after") {
+    @extend%shape;
+    top: 75% ;
+    right: -45vw;
+    background: $color-primary;
+    border-radius: 50% 50% 50% 50% / 70% 60% 50% 40%;
+  }
+}
+
+a,
+a:hover,
+a:visited {
+  text-decoration: none;
+}
