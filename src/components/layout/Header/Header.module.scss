@@ -1,0 +1,40 @@
+@import "../../../styles/settings.scss";
+
+.component {
+  margin: $base-unit * 8.5 $base-unit * 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  @include max-media($br-desktop) {
+    margin: $base-unit * 4 $base-unit;
+  }
+
+  @include p-el("before") {
+    left: 10%;
+    top: $base-unit * 18;
+    display: inline-block;
+    background: $color-light;
+    width: $base-unit * 5;
+    height: $base-unit * 0.6;
+    border-radius: $base-unit * 0.25;
+    transform: rotate(45deg);
+    z-index: -1;
+  }
+
+  @include p-el("after") {
+    right: -$base-unit * 3;
+    top: $base-unit * 10;
+    width: $base-unit * 7;
+    height: $base-unit * 7;
+    background: linear-gradient($color-light, $color-light) padding-box,
+      linear-gradient(to bottom, $color-secondary, $color-primary, $color-light 75%) border-box;
+    border: $base-unit * 0.7 solid transparent;
+    border-radius: 50%;
+    border-bottom-color: white;
+    border-right-color: white;
+    transform: rotate(-10deg);
+    z-index: -1;
+  }
+}

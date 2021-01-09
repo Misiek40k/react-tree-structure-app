@@ -1,0 +1,22 @@
+@import "../../../styles/settings.scss";
+
+.title {
+  font-size: $base-unit * 3;
+  font-family: $font-header;
+  letter-spacing: 0;
+
+  @include max-media($br-tablet){
+    font-size: $base-unit*2;
+  }
+}
+
+.subtitle {
+  font-size: $base-unit * 1.5;
+  word-wrap: break-word;
+
+
+  @include max-media($br-tablet){
+    font-size: $base-unit;
+    min-width: 50%;
+  }
+}

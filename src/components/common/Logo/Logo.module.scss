@@ -1,0 +1,23 @@
+@import "../../../styles/settings.scss";
+
+.component {
+  width: $base-unit * 8;
+  height: $base-unit * 8;
+  background: linear-gradient(-45deg, $color-primary, $color-secondary);
+  border-radius: $base-unit * 0.5;
+  padding: $base-unit * 1.5;
+  display: flex;
+  flex-wrap: wrap;
+  color: $color-light;
+  margin-bottom: $base-unit * 5;
+
+  .item {
+    display: flex;
+    width: 50%;
+    height: 50%;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-logo;
+    font-size: $base-unit * 1.75;
+  }
+}
