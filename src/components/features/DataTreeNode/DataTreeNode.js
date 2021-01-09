@@ -5,11 +5,12 @@ import styles from './DataTreeNode.module.scss';
 const DataTreeNode = ({dataTreeNode}) => {
   const nestedDataTreeNodes = (dataTreeNode.children || [])
     .map(nestedDataTreeNode => {
-      return <DataTreeNode dataTreeNode={nestedDataTreeNode} key={nestedDataTreeNode.id} />;
+      return <DataTreeNode dataTreeNode={nestedDataTreeNode} key={nestedDataTreeNode.data.id} />;
     });
 
   return (
     <li key={dataTreeNode.data.id} className={styles.component}>
+      <span>{dataTreeNode.data.title}</span>
       {dataTreeNode.children.length && <ul>{nestedDataTreeNodes}</ul>}
     </li>
   );

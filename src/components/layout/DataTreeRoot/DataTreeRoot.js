@@ -104,7 +104,7 @@ const ContentContainer = () => {
 
   return (
     <section className={styles.component}>
-      <SectionHeader name={data.title} />
+      <SectionHeader title={data.title} />
       <ul className={styles.list}>
         <DataTreeNode dataTreeNode={dataTreeState[0]} />
       </ul>
