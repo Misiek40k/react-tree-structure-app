@@ -60,40 +60,43 @@ export const settings = {
 
 export const initialState = [
   {
-    id: '1',
-    parentId: null,
-    data: null,
+    data: {
+      id: '1',
+      parentId: null,
+      variant: null,
+      title: null,
+    },
     children: [
       {
-        id: '1-1',
-        parentId: '1',
         data: {
+          id: '1-1',
+          parentId: '1',
           variant: 'medium',
           title: 'Age 40+',
         },
         children: [],
       },
       {
-        id: '1-2',
-        parentId: '1',
         data: {
+          id: '1-2',
+          parentId: '1',
           variant: 'large',
           title: 'Ethnicity',
         },
         children: [
           {
-            id: '1-2-1',
-            parentId: '1-2',
             data: {
+              id: '1-2-1',
+              parentId: '1-2',
               variant: 'medium',
               title: 'Black',
             },
             children: [],
           },
           {
-            id: '1-2-2',
-            parentId: '1-2',
             data: {
+              id: '1-2-2',
+              parentId: '1-2',
               variant: 'large',
               title: 'Hispanic',
             },
@@ -102,9 +105,9 @@ export const initialState = [
         ],
       },
       {
-        id: '1-3',
-        parentId : '1',
         data: {
+          id: '1-3',
+          parentId : '1',
           variant: 'medium',
           title: 'Income yearly 45k USD+',
         },

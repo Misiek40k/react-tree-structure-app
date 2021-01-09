@@ -1,0 +1,29 @@
+@import "../../../styles/settings.scss";
+
+.component {
+  margin: 0 auto $base-unit * 8.5;
+  padding: $base-unit * 7;
+  width: 80%;
+  background: $color-light;
+  max-width: $base-unit * 77;
+  border-radius: $base-unit * 0.5;
+  @extend%primary-shadow;
+  display: flex;
+  flex-direction: column;
+
+  @include max-media($br-xl-desktop) {
+    width: 90%;
+    padding: $base-unit * 7 $base-unit * 3;
+  }
+
+  @include max-media($br-desktop) {
+    width: 95%;
+    padding: $base-unit * 5 $base-unit * 2;
+  }
+
+  @include max-media($br-tablet) {
+    .list{
+      padding-left: 0;
+    }
+  }
+}

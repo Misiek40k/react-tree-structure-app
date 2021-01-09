@@ -1,0 +1,22 @@
+@import "../../../styles/settings.scss";
+
+.header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: $base-unit * 7;
+  padding: $base-unit * 2.5 $base-unit * 10;
+  width: $base-unit * 10;
+  border-radius: $base-unit * 0.75;
+  color: $color-light;
+  font-family: $font-header;
+  font-size: $base-unit * 2;
+  line-height: 1;
+  z-index: 2;
+  @extend%primary-gradient;
+  @extend%primary-shadow;
+
+  @include max-media($br-tablet) {
+    width: 100%;
+    padding: $base-unit * 2.5 0;
+  }
+}

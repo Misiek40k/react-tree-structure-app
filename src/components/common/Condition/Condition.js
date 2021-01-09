@@ -4,7 +4,8 @@ import styles from './Condition.module.scss';
 
 const Condition = ({ variant = '', name }) => (
   <span
-    className={styles.component + variant.split(' ').map(name => ' ' + (styles[name] || name)).join('')}>
+    className={styles.component + variant.split(' ')
+      .map(name => ' ' + (styles[name] || name)).join('')}>
     {name}
   </span>
 );
