@@ -57,3 +57,42 @@ export const settings = {
     },
   },
 };
+
+export const initialState = [
+  {
+    id: '1',
+    parentId: null,
+    variant: 'medium',
+    title: 'Age 40+',
+    children: [],
+  },
+  {
+    id: '2',
+    parentId: null,
+    variant: 'large',
+    title: 'Ethnicity',
+    children: [
+      {
+        id: '2-1',
+        parentId: '2',
+        variant: 'medium',
+        title: 'Black',
+        children: [],
+      },
+      {
+        id: '2-2',
+        parentId: '2',
+        variant: 'medium',
+        title: 'Hispanic',
+        children: [],
+      },
+    ],
+  },
+  {
+    id: '3',
+    parentId: null,
+    variant: 'medium',
+    title: 'Income yearly 45k USD+',
+    children: [],
+  },
+];
