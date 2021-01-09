@@ -11,7 +11,7 @@ const DataTreeNode = ({dataTreeNode}) => {
   return (
     <li key={dataTreeNode.data.id} className={styles.component}>
       <span>{dataTreeNode.data.title}</span>
-      {dataTreeNode.children.length && <ul>{nestedDataTreeNodes}</ul>}
+      {dataTreeNode.children.length > 0 && <ul>{nestedDataTreeNodes}</ul>}
     </li>
   );
 };
