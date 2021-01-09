@@ -64,11 +64,11 @@ const ContentContainer = () => {
   // const toggleDataNodeChildrenOpeators = (parentNodeId) => {
   // };
 
-  const findDataTreeNode = (nodeId) => {
+  const findDataTreeNode = (nodeId = '1') => {
     let searchNode = null;
 
     traverseDataTree((node) => {
-      if (node.id === nodeId) {
+      if (node.data.id === nodeId) {
         searchNode = node;
       }
     });
@@ -77,12 +77,11 @@ const ContentContainer = () => {
   };
 
   const traverseDataTree = (callback) => {
-    const queue = [dataTreeState];
+    const queue = [...dataTreeState];
 
     if (callback) {
       while (queue.length) {
-        const currentNode = queue.shift;
-
+        const currentNode = queue.shift();
         callback(currentNode);
 
         for (const childNode of currentNode.children) {
@@ -102,11 +101,13 @@ const ContentContainer = () => {
     setPopupInputValue,
   };
 
+  const rootDataTreeNode = findDataTreeNode();
+
   return (
     <section className={styles.component}>
       <SectionHeader title={data.title} />
       <ul className={styles.list}>
-        <DataTreeNode dataTreeNode={dataTreeState[0]} />
+        <DataTreeNode dataTreeNode={rootDataTreeNode} />
       </ul>
       {isPopupOpen ? <Popup {...popupProps} /> : null}
     </section>

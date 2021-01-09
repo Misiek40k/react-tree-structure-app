@@ -25,8 +25,7 @@ DataTreeNode.propTypes = {
       title: PropTypes.string,
     }),
     children: PropTypes.array,
-  },
-  ).isRequired,
+  }).isRequired,
 };
 
 export default DataTreeNode;
