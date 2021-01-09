@@ -1,0 +1,36 @@
+@import "../../../styles/settings.scss";
+
+.component {
+  background: $color-light;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  top: 50%;
+  left: 25%;
+  width: 50%;
+  padding: 20px;
+  border-radius: $base-unit * 0.5;
+  z-index: 3;
+  transform: translateY(50%);
+  @extend%primary-shadow;
+  @extend%border-gradient;
+
+  @include max-media($br-tablet){
+    left: 5%;
+    width: 90%;
+  }
+
+  .input {
+    padding: $base-unit * 0.5;
+    margin: $base-unit 0;
+    @extend%item-border;
+  }
+
+  .buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+}
