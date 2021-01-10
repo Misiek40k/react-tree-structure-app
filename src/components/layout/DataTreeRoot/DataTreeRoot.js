@@ -13,19 +13,16 @@ const ContentContainer = () => {
 
   const [isPopupOpen, setPopupOpenState] = useState(false);
   const [popupInputValue, setPopupInputValue] = useState('');
-  const [editOption, setEditOption] = useState(null);
   const [selectOption, setSelectOption] = useState(data.select.variant.medium);
   const [dataTreeState, setDataTreeState] = useState(initialState);
 
-  // const openPopup = (id) => {
-  //   if (id) { setEditOption(id); }
-  //   setPopupOpenState(true);
-  // };
+  const openPopup = () => {
+    setPopupOpenState(true);
+  };
 
   const closePopup = () => {
     setPopupOpenState(false);
     setPopupInputValue('');
-    setEditOption(null);
   };
 
   const generateTreeNodeId = (parentNodeId) => {
@@ -92,23 +89,28 @@ const ContentContainer = () => {
     }
   };
 
+  const rootDataTreeNode = findDataTreeNode();
+  const dataTreeNodeProps = {
+    dataTreeNode: rootDataTreeNode,
+    openPopup,
+  };
+
   const popupProps = {
     closePopup,
     addDataNode,
-    editOption,
     selectOption,
     setSelectOption,
     popupInputValue,
     setPopupInputValue,
   };
 
-  const rootDataTreeNode = findDataTreeNode();
+
 
   return (
     <section className={styles.component}>
       <SectionHeader title={data.title} />
-      <ul className={styles.list}>
-        <DataTreeNode dataTreeNode={rootDataTreeNode} />
+      <ul className={styles.rootList}>
+        <DataTreeNode {...dataTreeNodeProps} />
       </ul>
       {isPopupOpen ? <Popup {...popupProps} /> : null}
     </section>

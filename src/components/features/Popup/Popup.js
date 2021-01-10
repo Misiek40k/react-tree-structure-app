@@ -8,39 +8,39 @@ import Select from '../../common/Select/Select';
 import styles from './Popup.module.scss';
 
 
-const Popup = ({ editOption, closePop, addItem, addOption, selectOption, setSelectOption, inputValue, setInputValue }) => {
+const Popup = ({ closePopup, addDataNode, dataNodeStyleOption,
+  setDataNodeStyleOption, popupInputValue, setPopupInputValue, nodeId }) => {
   const data = settings.content;
   const buttons = settings.content.buttons;
 
   return (
     <div className={styles.component}>
       <Title
-        subtitle={!editOption ? data.popup.item : data.popup.option}
+        subtitle={data.popup.option}
       />
       <input
         type='text'
-        value={inputValue}
-        onChange={event => setInputValue(event.target.value)}
+        value={popupInputValue}
+        onChange={event => setPopupInputValue(event.target.value)}
         className={styles.input}
       />
       {
-        !editOption &&
         <Select
-          selectOption={selectOption}
-          setSelectOption={setSelectOption}
+          selectOption={dataNodeStyleOption}
+          setSelectOption={setDataNodeStyleOption}
         />
       }
       <div className={styles.buttons}>
         <Button
           variant={`${buttons.size.medium} ${buttons.variant.success}`}
           name={buttons.icon.plus}
-          clickAction={editOption ? addOption : addItem}
-          id={editOption}
+          clickAction={addDataNode}
+          id={nodeId}
         />
         <Button
           variant={`${buttons.size.medium} ${buttons.variant.danger}`}
           name={buttons.icon.cancel}
-          clickAction={closePop}
+          clickAction={closePopup}
         />
       </div>
     </div>
@@ -48,14 +48,13 @@ const Popup = ({ editOption, closePop, addItem, addOption, selectOption, setSele
 };
 
 Popup.propTypes = {
-  editOption: PropTypes.number,
-  closePop: PropTypes.func,
-  addItem: PropTypes.func,
-  addOption: PropTypes.func,
-  selectOption: PropTypes.string,
-  setSelectOption: PropTypes.func,
-  inputValue: PropTypes.string,
-  setInputValue: PropTypes.func,
+  closePopup: PropTypes.func,
+  addDataNode: PropTypes.func,
+  dataNodeStyleOption: PropTypes.string,
+  setDataNodeStyleOption: PropTypes.func,
+  popupInputValue: PropTypes.string,
+  setPopupInputValue: PropTypes.func,
+  nodeId: PropTypes. string,
 };
 
 export default Popup;

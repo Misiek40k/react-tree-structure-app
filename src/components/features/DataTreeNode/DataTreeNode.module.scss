@@ -1,5 +1,17 @@
 @import "../../../styles/settings.scss";
 
 .component {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $base-unit;
 
+  @include max-media($br-tablet) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.list {
+  padding: 0;
 }
