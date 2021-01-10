@@ -67,23 +67,24 @@ const ContentContainer = () => {
   const findDataTreeNode = (nodeId = '1') => {
     let searchNode = null;
 
-    traverseDataTree((node) => {
-      if (node.data.id === nodeId) {
-        searchNode = node;
-      }
+    traverseDataTree(nodeId, (currentNode) => {
+      searchNode = currentNode;
     });
 
     return searchNode;
   };
 
-  const traverseDataTree = (callback) => {
+  const traverseDataTree = (searchNodeId, callback) => {
     const queue = [...dataTreeState];
 
     if (callback) {
-      while (queue.length) {
+      while (queue.length > 0) {
         const currentNode = queue.shift();
-        callback(currentNode);
 
+        if (currentNode.data.id === searchNodeId) {
+          callback(currentNode);
+          return;
+        }
         for (const childNode of currentNode.children) {
           queue.push(childNode);
         }
