@@ -63,7 +63,7 @@ export const initialState = [
     data: {
       id: '1',
       parentId: null,
-      variant: null,
+      operator: null,
       title: null,
     },
     children: [
@@ -71,7 +71,7 @@ export const initialState = [
         data: {
           id: '1-1',
           parentId: '1',
-          variant: 'medium',
+          operator: 'And',
           title: 'Age 40+',
         },
         children: [],
@@ -80,7 +80,7 @@ export const initialState = [
         data: {
           id: '1-2',
           parentId: '1',
-          variant: 'large',
+          operator: 'And',
           title: 'Ethnicity',
         },
         children: [
@@ -88,7 +88,7 @@ export const initialState = [
             data: {
               id: '1-2-1',
               parentId: '1-2',
-              variant: 'medium',
+              operator: 'Or',
               title: 'Black',
             },
             children: [],
@@ -97,7 +97,7 @@ export const initialState = [
             data: {
               id: '1-2-2',
               parentId: '1-2',
-              variant: 'large',
+              operator: 'Or',
               title: 'Hispanic',
             },
             children: [],
@@ -108,7 +108,7 @@ export const initialState = [
         data: {
           id: '1-3',
           parentId : '1',
-          variant: 'medium',
+          operator: 'And',
           title: 'Income yearly 45k USD+',
         },
         children: [],

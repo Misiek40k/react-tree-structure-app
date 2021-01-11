@@ -5,7 +5,6 @@
   padding: $base-unit * 7;
   width: 80%;
   background: $color-light;
-  max-width: $base-unit * 77;
   border-radius: $base-unit * 0.5;
   @extend%primary-shadow;
   display: flex;
@@ -14,5 +13,6 @@
   .rootList {
     padding: 0;
     list-style-type: none;
+    width: 100%;
   }
 }

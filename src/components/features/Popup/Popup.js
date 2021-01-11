@@ -3,13 +3,11 @@ import { settings } from '../../../data/dataStore';
 
 import Title from '../../common/Title/Title';
 import Button from '../../common/Button/Button';
-import Select from '../../common/Select/Select';
 
 import styles from './Popup.module.scss';
 
 
-const Popup = ({ closePopup, addDataNode, dataNodeStyleOption,
-  setDataNodeStyleOption, popupInputValue, setPopupInputValue, nodeId }) => {
+const Popup = ({ closePopup, addDataNode, popupInputValue, setPopupInputValue, nodeId }) => {
   const data = settings.content;
   const buttons = settings.content.buttons;
 
@@ -24,12 +22,6 @@ const Popup = ({ closePopup, addDataNode, dataNodeStyleOption,
         onChange={event => setPopupInputValue(event.target.value)}
         className={styles.input}
       />
-      {
-        <Select
-          selectOption={dataNodeStyleOption}
-          setSelectOption={setDataNodeStyleOption}
-        />
-      }
       <div className={styles.buttons}>
         <Button
           variant={`${buttons.size.medium} ${buttons.variant.success}`}
@@ -54,7 +46,7 @@ Popup.propTypes = {
   setDataNodeStyleOption: PropTypes.func,
   popupInputValue: PropTypes.string,
   setPopupInputValue: PropTypes.func,
-  nodeId: PropTypes. string,
+  nodeId: PropTypes.string,
 };
 
 export default Popup;

@@ -6,6 +6,9 @@
   flex-direction: column;
   justify-content: center;
   z-index: 0;
+  cursor: pointer;
+  background: none;
+  border: none;
   @extend%condition-font;
 
   &.small {

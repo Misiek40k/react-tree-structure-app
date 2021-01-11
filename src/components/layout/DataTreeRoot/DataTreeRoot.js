@@ -13,7 +13,6 @@ const ContentContainer = () => {
 
   const [isPopupOpen, setPopupOpenState] = useState(false);
   const [popupInputValue, setPopupInputValue] = useState('');
-  const [selectOption, setSelectOption] = useState(data.select.variant.medium);
   const [dataTreeState, setDataTreeState] = useState(initialState);
 
   const openPopup = () => {
@@ -55,11 +54,29 @@ const ContentContainer = () => {
     }
   };
 
-  // const removeDataTreeNode = () => {
-  // };
+  const removeDataTreeNode = (nodeId) => {
+    console.log(nodeId);
+  };
 
-  // const toggleDataNodeChildrenOpeators = (parentNodeId) => {
-  // };
+  const toggleDataNodeChildrenOpeators = (parentNodeId) => {
+    mutateDataTreeOperators(dataTreeState, parentNodeId);
+  };
+
+  const mutateDataTreeOperators = (currentDataNodesArray, parentNodeId) => {
+    currentDataNodesArray.forEach(dataNode => {
+      if (dataNode.data.parentId === parentNodeId) {
+        dataNode = {
+          ...dataNode,
+          operator: dataNode.data.operator === 'And' ? dataNode.data.operator = 'Or' : dataNode.data.operator = 'And',
+        };
+      } else {
+        mutateDataTreeOperators(dataNode.children, parentNodeId);
+      }
+    });
+
+    setDataTreeState([...currentDataNodesArray]);
+    console.log(dataTreeState);
+  };
 
   const findDataTreeNode = (nodeId = '1') => {
     let searchNode = null;
@@ -93,18 +110,16 @@ const ContentContainer = () => {
   const dataTreeNodeProps = {
     dataTreeNode: rootDataTreeNode,
     openPopup,
+    removeDataTreeNode,
+    toggleDataNodeChildrenOpeators,
   };
 
   const popupProps = {
     closePopup,
     addDataNode,
-    selectOption,
-    setSelectOption,
     popupInputValue,
     setPopupInputValue,
   };
-
-
 
   return (
     <section className={styles.component}>

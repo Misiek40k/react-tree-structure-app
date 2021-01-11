@@ -3,10 +3,10 @@ import Icon from '../Icon/Icon';
 
 import styles from './Button.module.scss';
 
-const Button = ({ variant = '', name, clickAction, id, option }) => (
+const Button = ({ variant = '', name, clickAction, nodeId, option }) => (
   <button
     className={styles.component + variant.split(' ').map(name => ' ' + (styles[name] || name)).join('')}
-    onClick={() => clickAction(id, option)}
+    onClick={() => clickAction(nodeId, option)}
   >
     <Icon name={name} />
   </button>
@@ -16,7 +16,7 @@ Button.propTypes = {
   variant: PropTypes.string,
   name: PropTypes.string,
   clickAction: PropTypes.func,
-  id: PropTypes.number,
+  nodeId: PropTypes.string,
   option: PropTypes.any,
 };
 
