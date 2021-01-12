@@ -24,6 +24,8 @@ const ContentContainer = () => {
     setPopupInputValue('');
   };
 
+  // add new dataNode
+
   const generateTreeNodeId = (parentNodeId) => {
     if (parentNodeId) {
       return `${parentNodeId}-1`;
@@ -33,7 +35,7 @@ const ContentContainer = () => {
   };
 
   const addDataNode = (title, variant, parentNodeId) => {
-    const dataNode = {
+    const newDataNode = {
       data: {
         id: generateTreeNodeId(parentNodeId),
         parentId: parentNodeId ? parentNodeId : null,
@@ -43,69 +45,57 @@ const ContentContainer = () => {
       children: [],
     };
 
-    const parentNode = parentNodeId ? findDataTreeNode(parentNodeId) : null;
+    const parentNode = null;
 
     if (parentNode) {
-      parentNode.children.push(dataNode);
+      parentNode.children.push(newDataNode);
     } else {
       if (!dataTreeState) {
-        setDataTreeState({ dataNode });
+        setDataTreeState({ newDataNode });
       }
     }
   };
 
+  // remove dataNode
+
   const removeDataTreeNode = (nodeId) => {
-    console.log(nodeId);
+    removeNode(dataTreeState, nodeId);
   };
+
+  const removeNode = (dataNodesArray, nodeId) => {
+    dataNodesArray.forEach(dataNode => {
+      if (dataNode.children.some(childNode => childNode.data.id === nodeId)) {
+        dataNode.children = [...dataNode.children.filter(childNode => childNode.data.id !== nodeId)];
+      } else {
+        removeNode(dataNode.children, nodeId);
+      }
+    });
+
+    setDataTreeState([...dataNodesArray]);
+  };
+
+  // toggle dataNode operators
 
   const toggleDataNodeChildrenOpeators = (parentNodeId) => {
     mutateDataTreeOperators(dataTreeState, parentNodeId);
   };
 
-  const mutateDataTreeOperators = (currentDataNodesArray, parentNodeId) => {
-    currentDataNodesArray.forEach(dataNode => {
-      if (dataNode.data.parentId === parentNodeId) {
+  const mutateDataTreeOperators = (dataNodesArray, parentId) => {
+    dataNodesArray.forEach(dataNode => {
+      if (dataNode.data.parentId === parentId) {
         dataNode = {
           ...dataNode,
           operator: dataNode.data.operator === 'And' ? dataNode.data.operator = 'Or' : dataNode.data.operator = 'And',
         };
       } else {
-        mutateDataTreeOperators(dataNode.children, parentNodeId);
+        mutateDataTreeOperators(dataNode.children, parentId);
       }
     });
 
-    setDataTreeState([...currentDataNodesArray]);
+    setDataTreeState([...dataNodesArray]);
   };
 
-  const findDataTreeNode = (nodeId = '1') => {
-    let searchNode = null;
-
-    traverseDataTree(nodeId, (currentNode) => {
-      searchNode = currentNode;
-    });
-
-    return searchNode;
-  };
-
-  const traverseDataTree = (searchNodeId, callback) => {
-    const queue = [...dataTreeState];
-
-    if (callback) {
-      while (queue.length > 0) {
-        const currentNode = queue.shift();
-
-        if (currentNode.data.id === searchNodeId) {
-          callback(currentNode);
-          return;
-        }
-        for (const childNode of currentNode.children) {
-          queue.push(childNode);
-        }
-      }
-    }
-  };
-
-  const rootDataTreeNode = findDataTreeNode();
+  const rootDataTreeNode = dataTreeState[0];
   const dataTreeNodeProps = {
     dataTreeNode: rootDataTreeNode,
     openPopup,
