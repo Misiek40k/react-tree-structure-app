@@ -75,7 +75,6 @@ const ContentContainer = () => {
     });
 
     setDataTreeState([...currentDataNodesArray]);
-    console.log(dataTreeState);
   };
 
   const findDataTreeNode = (nodeId = '1') => {
