@@ -6,7 +6,7 @@ import Button from '../../common/Button/Button';
 
 import styles from './DataTreeNode.module.scss';
 
-const DataTreeNode = ({ dataTreeNode, openPopup, removeDataTreeNode, toggleDataNodeChildrenOpeators }) => {
+const DataTreeNode = ({ dataTreeNode, openPopup, removeDataNodeBtnClick, toggleDataNodeChildOpeatorsBtnClick }) => {
   const data = settings.content;
 
   const nestedDataTreeNodes = (dataTreeNode.children || [])
@@ -14,8 +14,8 @@ const DataTreeNode = ({ dataTreeNode, openPopup, removeDataTreeNode, toggleDataN
       const nestedDataTreeNodeProps = {
         dataTreeNode: nestedDataTreeNode,
         openPopup,
-        removeDataTreeNode,
-        toggleDataNodeChildrenOpeators,
+        removeDataNodeBtnClick,
+        toggleDataNodeChildOpeatorsBtnClick,
       };
 
       return <DataTreeNode key={nestedDataTreeNode.data.id} {...nestedDataTreeNodeProps} />;
@@ -26,7 +26,7 @@ const DataTreeNode = ({ dataTreeNode, openPopup, removeDataTreeNode, toggleDataN
       {dataTreeNode.data.id !== '1' &&
         <Condition
           name={dataTreeNode.data.operator}
-          clickAction={toggleDataNodeChildrenOpeators}
+          clickAction={toggleDataNodeChildOpeatorsBtnClick}
           nodeId={dataTreeNode.data.parentId}
         />}
       <div className={styles.listWrapper}>
@@ -36,7 +36,7 @@ const DataTreeNode = ({ dataTreeNode, openPopup, removeDataTreeNode, toggleDataN
             <Button
               variant={`${data.buttons.size.small} ${data.buttons.variant.danger}`}
               name={data.buttons.icon.minus}
-              clickAction={removeDataTreeNode}
+              clickAction={removeDataNodeBtnClick}
               nodeId={dataTreeNode.data.id}
             />}
         </div>
@@ -54,8 +54,8 @@ const DataTreeNode = ({ dataTreeNode, openPopup, removeDataTreeNode, toggleDataN
 
 DataTreeNode.propTypes = {
   openPopup: PropTypes.func,
-  removeDataTreeNode: PropTypes.func,
-  toggleDataNodeChildrenOpeators: PropTypes.func,
+  removeDataNodeBtnClick: PropTypes.func,
+  toggleDataNodeChildOpeatorsBtnClick: PropTypes.func,
   dataTreeNode: PropTypes.shape({
     data: PropTypes.shape({
       id: PropTypes.string,

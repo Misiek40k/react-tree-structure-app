@@ -7,7 +7,7 @@ import Button from '../../common/Button/Button';
 import styles from './Popup.module.scss';
 
 
-const Popup = ({ closePopup, addDataNode, popupInputValue, setPopupInputValue, nodeId }) => {
+const Popup = ({ closePopup, addDataNodeBtnClick, popupInputValue, setPopupInputValue, nodeId }) => {
   const data = settings.content;
   const buttons = settings.content.buttons;
 
@@ -26,8 +26,8 @@ const Popup = ({ closePopup, addDataNode, popupInputValue, setPopupInputValue, n
         <Button
           variant={`${buttons.size.medium} ${buttons.variant.success}`}
           name={buttons.icon.plus}
-          clickAction={addDataNode}
-          id={nodeId}
+          clickAction={addDataNodeBtnClick}
+          nodeId={nodeId}
         />
         <Button
           variant={`${buttons.size.medium} ${buttons.variant.danger}`}
@@ -41,9 +41,7 @@ const Popup = ({ closePopup, addDataNode, popupInputValue, setPopupInputValue, n
 
 Popup.propTypes = {
   closePopup: PropTypes.func,
-  addDataNode: PropTypes.func,
-  dataNodeStyleOption: PropTypes.string,
-  setDataNodeStyleOption: PropTypes.func,
+  addDataNodeBtnClick: PropTypes.func,
   popupInputValue: PropTypes.string,
   setPopupInputValue: PropTypes.func,
   nodeId: PropTypes.string,

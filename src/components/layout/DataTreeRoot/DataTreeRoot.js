@@ -13,60 +13,70 @@ const ContentContainer = () => {
 
   const [isPopupOpen, setPopupOpenState] = useState(false);
   const [popupInputValue, setPopupInputValue] = useState('');
+  const [currentAddNodeId, setCurrentAddNodeId] = useState(null);
   const [dataTreeState, setDataTreeState] = useState(initialState);
 
   // popup methods
 
-  const openPopup = () => {
+  const openPopup = (nodeId) => {
+    setCurrentAddNodeId(nodeId);
     setPopupOpenState(true);
   };
 
   const closePopup = () => {
     setPopupOpenState(false);
     setPopupInputValue('');
+    setCurrentAddNodeId(null);
   };
 
   // add new dataNode
 
-  const generateTreeNodeId = (parentNodeId) => {
-    if (parentNodeId) {
-      return `${parentNodeId}-1`;
-    } else {
-      return `1`;
-    }
+  const generateNewDataNodeId = (dataNode) => {
+    const currentSplitIdsArray = dataNode.children[dataNode.children.length - 1].data.id.split('-');
+
+    currentSplitIdsArray[currentSplitIdsArray.length - 1] =
+      (parseFloat(currentSplitIdsArray[currentSplitIdsArray.length - 1]) + 1).toString();
+
+    const newId = currentSplitIdsArray.join('-');
+
+    console.log(newId);
+    return newId;
   };
 
-  const generateTreeNodeOperator = () => {
-    'Or';
+  const generateNewDataNodeOperator = (dataNode) => {
+    return dataNode.children[0].data.operator;
   };
 
-  const addDataNode = (title, parentId) => {
-    const newDataNode = {
-      data: {
-        id: generateTreeNodeId(parentId),
-        parentId: parentId ? parentId : null,
-        operator: generateTreeNodeOperator(parentId),
-        title,
-      },
-      children: [],
-    };
-
-    addNode(dataTreeState, parentId, newDataNode);
+  const addDataNodeBtnClick = (parentId) => {
+    addDataNode(dataTreeState, parentId);
   };
 
-  const addNode = (dataNodesArray, parentId, newDataNode) => {
+  const addDataNode = (dataNodesArray, parentId) => {
     dataNodesArray.forEach(dataNode => {
-      if (dataNode.data.parentId === parentId) {
+      if (dataNode.data.id === parentId) {
+        const newDataNode = {
+          data: {
+            id: generateNewDataNodeId(dataNode),
+            parentId,
+            operator: generateNewDataNodeOperator(dataNode),
+            title: popupInputValue,
+          },
+          children: [],
+        };
+
         dataNode.children.push(newDataNode);
+        closePopup();
       } else {
-        addNode(dataNode.children, parentId, newDataNode);
+        addDataNode(dataNode.children, parentId);
       }
     });
+
+    setDataTreeState([...dataNodesArray]);
   };
 
   // remove dataNode
 
-  const removeDataTreeNode = (nodeId) => {
+  const removeDataNodeBtnClick = (nodeId) => {
     removeNode(dataTreeState, nodeId);
   };
 
@@ -84,7 +94,7 @@ const ContentContainer = () => {
 
   // toggle dataNode logic operators
 
-  const toggleDataNodeChildrenOpeators = (parentNodeId) => {
+  const toggleDataNodeChildOpeatorsBtnClick = (parentNodeId) => {
     mutateDataTreeOperators(dataTreeState, parentNodeId);
   };
 
@@ -107,15 +117,16 @@ const ContentContainer = () => {
   const dataTreeNodeProps = {
     dataTreeNode: rootDataTreeNode,
     openPopup,
-    removeDataTreeNode,
-    toggleDataNodeChildrenOpeators,
+    removeDataNodeBtnClick,
+    toggleDataNodeChildOpeatorsBtnClick,
   };
 
   const popupProps = {
     closePopup,
-    addDataNode,
+    addDataNodeBtnClick,
     popupInputValue,
     setPopupInputValue,
+    nodeId: currentAddNodeId,
   };
 
   return (
