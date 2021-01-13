@@ -32,19 +32,25 @@ const ContentContainer = () => {
   // add new dataNode
 
   const generateNewDataNodeId = (dataNode) => {
-    const currentSplitIdsArray = dataNode.children[dataNode.children.length - 1].data.id.split('-');
+    if (dataNode.children.length > 0) {
+      const currentSplitIdArray = dataNode.children[dataNode.children.length - 1].data.id.split('-');
 
-    currentSplitIdsArray[currentSplitIdsArray.length - 1] =
-      (parseFloat(currentSplitIdsArray[currentSplitIdsArray.length - 1]) + 1).toString();
+      currentSplitIdArray[currentSplitIdArray.length - 1] =
+        (parseFloat(currentSplitIdArray[currentSplitIdArray.length - 1]) + 1).toString();
 
-    const newId = currentSplitIdsArray.join('-');
-
-    console.log(newId);
-    return newId;
+      const newId = currentSplitIdArray.join('-');
+      return newId;
+    } else {
+      return `${dataNode.data.parentId}-1`;
+    }
   };
 
   const generateNewDataNodeOperator = (dataNode) => {
-    return dataNode.children[0].data.operator;
+    if (dataNode.children.length > 0) {
+      return dataNode.children[0].data.operator;
+    } else {
+      return data.condition.txt.inner;
+    }
   };
 
   const addDataNodeBtnClick = (parentId) => {
@@ -103,7 +109,9 @@ const ContentContainer = () => {
       if (dataNode.data.parentId === parentId) {
         dataNode = {
           ...dataNode,
-          operator: dataNode.data.operator === 'And' ? dataNode.data.operator = 'Or' : dataNode.data.operator = 'And',
+          operator: dataNode.data.operator === data.condition.txt.outer ?
+            dataNode.data.operator = data.condition.txt.inner :
+            dataNode.data.operator = data.condition.txt.outer,
         };
       } else {
         mutateDataTreeOperators(dataNode.children, parentId);
