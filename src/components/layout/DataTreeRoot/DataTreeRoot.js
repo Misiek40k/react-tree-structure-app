@@ -24,6 +24,7 @@ const DataTreeRoot = () => {
   };
 
   const closePopup = () => {
+    setCurrentAddNodeId(null);
     setPopupInputValue('');
     setPopupOpenState(false);
   };
@@ -53,30 +54,30 @@ const DataTreeRoot = () => {
   };
 
   const addDataNodeBtnClick = (parentId) => {
-    addDataNode(dataTreeState, parentId);
+    addDataTreeNode(dataTreeState, parentId);
   };
 
-  const addDataNode = (dataNodesArray, parentId) => {
-    dataNodesArray.forEach(dataNode => {
-      if (dataNode.data.id === parentId) {
-        const newDataNode = {
+  const addDataTreeNode = (dataTreeNodesArray, parentId) => {
+    dataTreeNodesArray.forEach(dataTreeNode => {
+      if (dataTreeNode.data.id === parentId) {
+        const newDataTreeNode = {
           data: {
-            id: generateNewDataNodeId(dataNode),
+            id: generateNewDataNodeId(dataTreeNode),
             parentId,
-            operator: generateNewDataNodeOperator(dataNode),
+            operator: generateNewDataNodeOperator(dataTreeNode),
             title: popupInputValue,
           },
           children: [],
         };
 
-        dataNode.children.push(newDataNode);
+        dataTreeNode.children.push(newDataTreeNode);
         closePopup();
       } else {
-        addDataNode(dataNode.children, parentId);
+        addDataTreeNode(dataTreeNode.children, parentId);
       }
     });
 
-    setDataTreeState([...dataNodesArray]);
+    setDataTreeState([...dataTreeNodesArray]);
   };
 
   // remove dataNode
