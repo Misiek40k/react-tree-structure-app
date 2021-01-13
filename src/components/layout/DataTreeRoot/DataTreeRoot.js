@@ -31,9 +31,9 @@ const ContentContainer = () => {
 
   // add new dataNode
 
-  const generateNewDataNodeId = (dataNode) => {
-    if (dataNode.children.length > 0) {
-      const currentSplitIdArray = dataNode.children[dataNode.children.length - 1].data.id.split('-');
+  const generateNewDataNodeId = (dataTreeNode) => {
+    if (dataTreeNode.children.length > 0) {
+      const currentSplitIdArray = dataTreeNode.children[dataTreeNode.children.length - 1].data.id.split('-');
 
       currentSplitIdArray[currentSplitIdArray.length - 1] =
         (parseFloat(currentSplitIdArray[currentSplitIdArray.length - 1]) + 1).toString();
@@ -41,13 +41,13 @@ const ContentContainer = () => {
       const newId = currentSplitIdArray.join('-');
       return newId;
     } else {
-      return `${dataNode.data.parentId}-1`;
+      return `${dataTreeNode.data.parentId}-1`;
     }
   };
 
-  const generateNewDataNodeOperator = (dataNode) => {
-    if (dataNode.children.length > 0) {
-      return dataNode.children[0].data.operator;
+  const generateNewDataNodeOperator = (dataTreeNode) => {
+    if (dataTreeNode.children.length > 0) {
+      return dataTreeNode.children[0].data.operator;
     } else {
       return data.condition.txt.inner;
     }
@@ -86,16 +86,16 @@ const ContentContainer = () => {
     removeNode(dataTreeState, nodeId);
   };
 
-  const removeNode = (dataNodesArray, nodeId) => {
-    dataNodesArray.forEach(dataNode => {
-      if (dataNode.children.some(childNode => childNode.data.id === nodeId)) {
-        dataNode.children = [...dataNode.children.filter(childNode => childNode.data.id !== nodeId)];
+  const removeNode = (dataTreeNodesArray, nodeId) => {
+    dataTreeNodesArray.forEach(dataTreeNode => {
+      if (dataTreeNode.children.some(childNode => childNode.data.id === nodeId)) {
+        dataTreeNode.children = [...dataTreeNode.children.filter(childNode => childNode.data.id !== nodeId)];
       } else {
-        removeNode(dataNode.children, nodeId);
+        removeNode(dataTreeNode.children, nodeId);
       }
     });
 
-    setDataTreeState([...dataNodesArray]);
+    setDataTreeState([...dataTreeNodesArray]);
   };
 
   // toggle dataNode logic operators
@@ -104,21 +104,21 @@ const ContentContainer = () => {
     mutateDataTreeOperators(dataTreeState, parentNodeId);
   };
 
-  const mutateDataTreeOperators = (dataNodesArray, parentId) => {
-    dataNodesArray.forEach(dataNode => {
-      if (dataNode.data.parentId === parentId) {
-        dataNode = {
-          ...dataNode,
-          operator: dataNode.data.operator === data.condition.txt.outer ?
-            dataNode.data.operator = data.condition.txt.inner :
-            dataNode.data.operator = data.condition.txt.outer,
+  const mutateDataTreeOperators = (dataTreeNodesArray, parentId) => {
+    dataTreeNodesArray.forEach(dataTreeNode => {
+      if (dataTreeNode.data.parentId === parentId) {
+        dataTreeNode = {
+          ...dataTreeNode,
+          operator: dataTreeNode.data.operator === data.condition.txt.outer ?
+            dataTreeNode.data.operator = data.condition.txt.inner :
+            dataTreeNode.data.operator = data.condition.txt.outer,
         };
       } else {
-        mutateDataTreeOperators(dataNode.children, parentId);
+        mutateDataTreeOperators(dataTreeNode.children, parentId);
       }
     });
 
-    setDataTreeState([...dataNodesArray]);
+    setDataTreeState([...dataTreeNodesArray]);
   };
 
   const rootDataTreeNode = dataTreeState[0];
