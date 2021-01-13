@@ -8,7 +8,7 @@ import Popup from '../../features/Popup/Popup';
 
 import styles from './DataTreeRoot.module.scss';
 
-const ContentContainer = () => {
+const DataTreeRoot = () => {
   const data = settings.content;
 
   const [isPopupOpen, setPopupOpenState] = useState(false);
@@ -148,4 +148,4 @@ const ContentContainer = () => {
   );
 };
 
-export default ContentContainer;
+export default DataTreeRoot;
