@@ -101,10 +101,10 @@ const DataTreeRoot = () => {
   // toggle dataNode logic operators
 
   const toggleDataNodeChildOpeatorsBtnClick = (parentNodeId) => {
-    toggleDataTreeOperators(dataTreeState, parentNodeId);
+    toggleDataNodeChildOperators(dataTreeState, parentNodeId);
   };
 
-  const toggleDataTreeOperators = (dataTreeNodesArray, parentId) => {
+  const toggleDataNodeChildOperators = (dataTreeNodesArray, parentId) => {
     dataTreeNodesArray.forEach(dataTreeNode => {
       if (dataTreeNode.data.parentId === parentId) {
         dataTreeNode = {
@@ -114,16 +114,17 @@ const DataTreeRoot = () => {
             dataTreeNode.data.operator = data.condition.txt.outer,
         };
       } else {
-        toggleDataTreeOperators(dataTreeNode.children, parentId);
+        toggleDataNodeChildOperators(dataTreeNode.children, parentId);
       }
     });
 
     setDataTreeState([...dataTreeNodesArray]);
   };
 
-  const rootDataTreeNode = dataTreeState[0];
+  // child component props
+
   const dataTreeNodeProps = {
-    dataTreeNode: rootDataTreeNode,
+    dataTreeNode: dataTreeState[0],
     openPopup,
     removeDataNodeBtnClick,
     toggleDataNodeChildOpeatorsBtnClick,
