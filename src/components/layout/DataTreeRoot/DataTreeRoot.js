@@ -24,9 +24,8 @@ const DataTreeRoot = () => {
   };
 
   const closePopup = () => {
-    setPopupOpenState(false);
     setPopupInputValue('');
-    setCurrentAddNodeId(null);
+    setPopupOpenState(false);
   };
 
   // add new dataNode
@@ -41,7 +40,7 @@ const DataTreeRoot = () => {
       const newId = currentSplitIdArray.join('-');
       return newId;
     } else {
-      return `${dataTreeNode.data.parentId}-1`;
+      return `${dataTreeNode.data.id}-1`;
     }
   };
 
