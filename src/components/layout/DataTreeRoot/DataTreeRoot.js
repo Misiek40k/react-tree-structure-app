@@ -101,10 +101,10 @@ const DataTreeRoot = () => {
   // toggle dataNode logic operators
 
   const toggleDataNodeChildOpeatorsBtnClick = (parentNodeId) => {
-    mutateDataTreeOperators(dataTreeState, parentNodeId);
+    toggleDataTreeOperators(dataTreeState, parentNodeId);
   };
 
-  const mutateDataTreeOperators = (dataTreeNodesArray, parentId) => {
+  const toggleDataTreeOperators = (dataTreeNodesArray, parentId) => {
     dataTreeNodesArray.forEach(dataTreeNode => {
       if (dataTreeNode.data.parentId === parentId) {
         dataTreeNode = {
@@ -114,7 +114,7 @@ const DataTreeRoot = () => {
             dataTreeNode.data.operator = data.condition.txt.outer,
         };
       } else {
-        mutateDataTreeOperators(dataTreeNode.children, parentId);
+        toggleDataTreeOperators(dataTreeNode.children, parentId);
       }
     });
 
