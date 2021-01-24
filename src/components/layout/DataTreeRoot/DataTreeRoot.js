@@ -45,14 +45,6 @@ const DataTreeRoot = () => {
     }
   };
 
-  const generateNewDataNodeOperator = dataTreeNode => {
-    if (dataTreeNode.children.length > 0) {
-      return dataTreeNode.children[0].operator;
-    } else {
-      return data.condition.txt.inner;
-    }
-  };
-
   const addDataNodeBtnClick = nodeId => {
     addDataTreeNode(dataTreeState, nodeId);
   };
@@ -62,7 +54,7 @@ const DataTreeRoot = () => {
       if (dataTreeNode.id === nodeId) {
         const newDataTreeNode = {
           id: generateNewDataNodeId(dataTreeNode),
-          operator: generateNewDataNodeOperator(dataTreeNode),
+          operator: data.condition.txt.inner,
           title: popupInputValue,
           children: [],
         };
