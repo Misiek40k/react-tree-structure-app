@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import Condition from '../../common/Condition/Condition';
 import { settings } from '../../../data/dataStore';
+
+import Condition from '../../common/Condition/Condition';
 import Title from '../../common/Title/Title';
 import Button from '../../common/Button/Button';
 
