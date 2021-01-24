@@ -64,24 +64,24 @@ export const initialState = [
     operator: 'And',
     children: [
       {
-        id: '1-1',
+        id: '11',
         operator: 'Or',
         title: 'Age 40+',
         children: [],
       },
       {
-        id: '1-2',
+        id: '12',
         operator: 'Or',
         title: 'Ethnicity',
         children: [
           {
-            id: '1-2-1',
+            id: '121',
             operator: 'Or',
             title: 'Black',
             children: [],
           },
           {
-            id: '1-2-2',
+            id: '122',
             operator: 'Or',
             title: 'Hispanic',
             children: [],
@@ -89,7 +89,7 @@ export const initialState = [
         ],
       },
       {
-        id: '1-3',
+        id: '13',
         operator: 'Or',
         title: 'Income yearly 45k USD+',
         children: [],

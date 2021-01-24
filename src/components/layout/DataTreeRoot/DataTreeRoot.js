@@ -33,15 +33,11 @@ const DataTreeRoot = () => {
 
   const generateNewDataNodeId = dataTreeNode => {
     if (dataTreeNode.children.length > 0) {
-      const currentSplitIdArray = dataTreeNode.children[dataTreeNode.children.length - 1].id.split('-');
+      const lastChildNodeId = dataTreeNode.children[dataTreeNode.children.length - 1].id;
 
-      currentSplitIdArray[currentSplitIdArray.length - 1] =
-        (parseFloat(currentSplitIdArray[currentSplitIdArray.length - 1]) + 1).toString();
-
-      const newId = currentSplitIdArray.join('-');
-      return newId;
+      return lastChildNodeId.slice(0, -1) + (parseFloat(lastChildNodeId.substr(-1, 1)) + 1).toString();
     } else {
-      return `${dataTreeNode.id}-1`;
+      return dataTreeNode.id + '1';
     }
   };
 
