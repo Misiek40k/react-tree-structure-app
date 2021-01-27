@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
-import Condition from '../../common/Condition/Condition';
 import { settings } from '../../../data/dataStore';
+
+import Condition from '../../common/Condition/Condition';
 import Title from '../../common/Title/Title';
 import Button from '../../common/Button/Button';
 
 import styles from './DataTreeNode.module.scss';
 
-const DataTreeNode = ({ dataTreeNode, openPopup, removeDataNodeBtnClick, toggleDataNodeChildOpeatorsBtnClick }) => {
+const DataTreeNode = ({ dataTreeNode, openPopup, removeDataNodeBtnClick,
+  toggleDataNodeChildOpeatorsBtnClick, operator }) => {
   const data = settings.content;
 
   const nestedDataTreeNodes = (dataTreeNode.children || [])
@@ -16,28 +18,29 @@ const DataTreeNode = ({ dataTreeNode, openPopup, removeDataNodeBtnClick, toggleD
         openPopup,
         removeDataNodeBtnClick,
         toggleDataNodeChildOpeatorsBtnClick,
+        operator: dataTreeNode.operator,
       };
 
-      return <DataTreeNode key={nestedDataTreeNode.data.id} {...nestedDataTreeNodeProps} />;
+      return <DataTreeNode key={nestedDataTreeNode.id} {...nestedDataTreeNodeProps} />;
     });
 
   return (
-    <li key={dataTreeNode.data.id} className={styles.component}>
-      {dataTreeNode.data.id !== '1' &&
+    <li key={dataTreeNode.id} className={styles.component}>
+      {dataTreeNode.id !== '1' &&
         <Condition
-          name={dataTreeNode.data.operator}
+          name={operator}
           clickAction={toggleDataNodeChildOpeatorsBtnClick}
-          nodeId={dataTreeNode.data.parentId}
+          nodeId={dataTreeNode.parentId}
         />}
       <div className={styles.listWrapper}>
         <div className={styles.titleWrapper}>
-          <Title subtitle={dataTreeNode.data.title} />
-          {dataTreeNode.data.id !== '1' &&
+          <Title subtitle={dataTreeNode.title} />
+          {dataTreeNode.id !== '1' &&
             <Button
               variant={`${data.buttons.size.small} ${data.buttons.variant.danger}`}
               name={data.buttons.icon.minus}
               clickAction={removeDataNodeBtnClick}
-              nodeId={dataTreeNode.data.id}
+              nodeId={dataTreeNode.id}
             />}
         </div>
         {dataTreeNode.children.length > 0 && <ul className={styles.list}>{nestedDataTreeNodes}</ul>}
@@ -45,7 +48,7 @@ const DataTreeNode = ({ dataTreeNode, openPopup, removeDataNodeBtnClick, toggleD
           variant={`${data.buttons.size.small} ${data.buttons.variant.success}`}
           name={data.buttons.icon.plus}
           clickAction={openPopup}
-          nodeId={dataTreeNode.data.id}
+          nodeId={dataTreeNode.id}
         />
       </div>
     </li>
@@ -56,13 +59,12 @@ DataTreeNode.propTypes = {
   openPopup: PropTypes.func,
   removeDataNodeBtnClick: PropTypes.func,
   toggleDataNodeChildOpeatorsBtnClick: PropTypes.func,
+  operator: PropTypes.string,
   dataTreeNode: PropTypes.shape({
-    data: PropTypes.shape({
-      id: PropTypes.string,
-      parentId: PropTypes.parentId,
-      operator: PropTypes.string,
-      title: PropTypes.string,
-    }),
+    id: PropTypes.string,
+    parentId: PropTypes.string,
+    operator: PropTypes.string,
+    title: PropTypes.string,
     children: PropTypes.array,
   }).isRequired,
 };

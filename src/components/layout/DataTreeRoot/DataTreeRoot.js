@@ -18,7 +18,7 @@ const DataTreeRoot = () => {
 
   // popup methods
 
-  const openPopup = (nodeId) => {
+  const openPopup = nodeId => {
     setCurrentAddNodeId(nodeId);
     setPopupOpenState(true);
   };
@@ -31,49 +31,35 @@ const DataTreeRoot = () => {
 
   // add new dataNode
 
-  const generateNewDataNodeId = (dataTreeNode) => {
+  const generateNewDataNodeId = dataTreeNode => {
     if (dataTreeNode.children.length > 0) {
-      const currentSplitIdArray = dataTreeNode.children[dataTreeNode.children.length - 1].data.id.split('-');
+      const lastChildNodeId = dataTreeNode.children[dataTreeNode.children.length - 1].id;
 
-      currentSplitIdArray[currentSplitIdArray.length - 1] =
-        (parseFloat(currentSplitIdArray[currentSplitIdArray.length - 1]) + 1).toString();
-
-      const newId = currentSplitIdArray.join('-');
-      return newId;
+      return lastChildNodeId.slice(0, -1) + (parseFloat(lastChildNodeId.substr(-1, 1)) + 1).toString();
     } else {
-      return `${dataTreeNode.data.id}-1`;
+      return dataTreeNode.id + '1';
     }
   };
 
-  const generateNewDataNodeOperator = (dataTreeNode) => {
-    if (dataTreeNode.children.length > 0) {
-      return dataTreeNode.children[0].data.operator;
-    } else {
-      return data.condition.txt.inner;
-    }
+  const addDataNodeBtnClick = nodeId => {
+    addDataTreeNode(dataTreeState, nodeId);
   };
 
-  const addDataNodeBtnClick = (parentId) => {
-    addDataTreeNode(dataTreeState, parentId);
-  };
-
-  const addDataTreeNode = (dataTreeNodesArray, parentId) => {
+  const addDataTreeNode = (dataTreeNodesArray, nodeId) => {
     dataTreeNodesArray.forEach(dataTreeNode => {
-      if (dataTreeNode.data.id === parentId) {
+      if (dataTreeNode.id === nodeId) {
         const newDataTreeNode = {
-          data: {
-            id: generateNewDataNodeId(dataTreeNode),
-            parentId,
-            operator: generateNewDataNodeOperator(dataTreeNode),
-            title: popupInputValue,
-          },
+          id: generateNewDataNodeId(dataTreeNode),
+          parentId: nodeId,
+          operator: data.condition.txt.inner,
+          title: popupInputValue,
           children: [],
         };
 
         dataTreeNode.children.push(newDataTreeNode);
         closePopup();
       } else {
-        addDataTreeNode(dataTreeNode.children, parentId);
+        addDataTreeNode(dataTreeNode.children, nodeId);
       }
     });
 
@@ -82,14 +68,14 @@ const DataTreeRoot = () => {
 
   // remove dataNode
 
-  const removeDataNodeBtnClick = (nodeId) => {
+  const removeDataNodeBtnClick = nodeId => {
     removeNode(dataTreeState, nodeId);
   };
 
   const removeNode = (dataTreeNodesArray, nodeId) => {
     dataTreeNodesArray.forEach(dataTreeNode => {
-      if (dataTreeNode.children.some(childNode => childNode.data.id === nodeId)) {
-        dataTreeNode.children = [...dataTreeNode.children.filter(childNode => childNode.data.id !== nodeId)];
+      if (dataTreeNode.children.some(childNode => childNode.id === nodeId)) {
+        dataTreeNode.children = [...dataTreeNode.children.filter(childNode => childNode.id !== nodeId)];
       } else {
         removeNode(dataTreeNode.children, nodeId);
       }
@@ -100,19 +86,16 @@ const DataTreeRoot = () => {
 
   // toggle dataNode logic operators
 
-  const toggleDataNodeChildOpeatorsBtnClick = (parentNodeId) => {
-    toggleDataNodeChildOperators(dataTreeState, parentNodeId);
+  const toggleDataNodeChildOpeatorsBtnClick = parentId => {
+    toggleDataNodeChildOperators(dataTreeState, parentId);
   };
 
   const toggleDataNodeChildOperators = (dataTreeNodesArray, parentId) => {
     dataTreeNodesArray.forEach(dataTreeNode => {
-      if (dataTreeNode.data.parentId === parentId) {
-        dataTreeNode = {
-          ...dataTreeNode,
-          operator: dataTreeNode.data.operator === data.condition.txt.outer ?
-            dataTreeNode.data.operator = data.condition.txt.inner :
-            dataTreeNode.data.operator = data.condition.txt.outer,
-        };
+      if (dataTreeNode.id === parentId) {
+        dataTreeNode.operator = dataTreeNode.operator === data.condition.txt.outer ?
+          dataTreeNode.operator = data.condition.txt.inner :
+          dataTreeNode.operator = data.condition.txt.outer;
       } else {
         toggleDataNodeChildOperators(dataTreeNode.children, parentId);
       }
@@ -128,6 +111,7 @@ const DataTreeRoot = () => {
     openPopup,
     removeDataNodeBtnClick,
     toggleDataNodeChildOpeatorsBtnClick,
+    operator: dataTreeState[0].operator,
   };
 
   const popupProps = {
