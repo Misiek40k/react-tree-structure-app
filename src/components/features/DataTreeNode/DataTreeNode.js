@@ -30,7 +30,7 @@ const DataTreeNode = ({ dataTreeNode, openPopup, removeDataNodeBtnClick,
         <Condition
           name={operator}
           clickAction={toggleDataNodeChildOpeatorsBtnClick}
-          nodeId={dataTreeNode.id}
+          nodeId={dataTreeNode.parentId}
         />}
       <div className={styles.listWrapper}>
         <div className={styles.titleWrapper}>
@@ -62,6 +62,7 @@ DataTreeNode.propTypes = {
   operator: PropTypes.string,
   dataTreeNode: PropTypes.shape({
     id: PropTypes.string,
+    parentId: PropTypes.string,
     operator: PropTypes.string,
     title: PropTypes.string,
     children: PropTypes.array,

@@ -61,27 +61,32 @@ export const settings = {
 export const initialState = [
   {
     id: '1',
+    parentId: null,
     operator: 'And',
     children: [
       {
         id: '11',
+        parentId: '1',
         operator: 'Or',
         title: 'Age 40+',
         children: [],
       },
       {
         id: '12',
+        parentId: '1',
         operator: 'Or',
         title: 'Ethnicity',
         children: [
           {
             id: '121',
+            parentId: '12',
             operator: 'Or',
             title: 'Black',
             children: [],
           },
           {
             id: '122',
+            parentId: '12',
             operator: 'Or',
             title: 'Hispanic',
             children: [],
@@ -90,6 +95,7 @@ export const initialState = [
       },
       {
         id: '13',
+        parentId: '1',
         operator: 'Or',
         title: 'Income yearly 45k USD+',
         children: [],

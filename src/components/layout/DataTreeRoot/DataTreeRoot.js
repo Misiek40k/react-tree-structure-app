@@ -50,6 +50,7 @@ const DataTreeRoot = () => {
       if (dataTreeNode.id === nodeId) {
         const newDataTreeNode = {
           id: generateNewDataNodeId(dataTreeNode),
+          parentId: nodeId,
           operator: data.condition.txt.inner,
           title: popupInputValue,
           children: [],
@@ -85,18 +86,18 @@ const DataTreeRoot = () => {
 
   // toggle dataNode logic operators
 
-  const toggleDataNodeChildOpeatorsBtnClick = nodeId => {
-    toggleDataNodeChildOperators(dataTreeState, nodeId);
+  const toggleDataNodeChildOpeatorsBtnClick = parentId => {
+    toggleDataNodeChildOperators(dataTreeState, parentId);
   };
 
-  const toggleDataNodeChildOperators = (dataTreeNodesArray, nodeId) => {
+  const toggleDataNodeChildOperators = (dataTreeNodesArray, parentId) => {
     dataTreeNodesArray.forEach(dataTreeNode => {
-      if (dataTreeNode.children.some(childNode => childNode.id === nodeId)) {
+      if (dataTreeNode.id === parentId) {
         dataTreeNode.operator = dataTreeNode.operator === data.condition.txt.outer ?
           dataTreeNode.operator = data.condition.txt.inner :
           dataTreeNode.operator = data.condition.txt.outer;
       } else {
-        toggleDataNodeChildOperators(dataTreeNode.children, nodeId);
+        toggleDataNodeChildOperators(dataTreeNode.children, parentId);
       }
     });
 
